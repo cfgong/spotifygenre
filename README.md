@@ -4,5 +4,5 @@
 - `user_id` and `playlist_id` > `items(track(album(name, href), href, id, name))` in `fields`.
 - under `OAuth Token` click `GET TOKEN` 
 - song dta in  `songs.json`
-- [Spotify Web Console](https://beta.developer.spotify.com/console/get-audio-features-several-tracks/), navigate to Tracks > Get Audio Features for Several Tracks and enter the song ids.
+- [Get Audio Features](https://beta.developer.spotify.com/console/get-audio-features-several-tracks/), navigate to Tracks > Get Audio Features for Several Tracks and enter the song ids.
 - copy and pasted feature data in `features.json`
