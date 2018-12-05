@@ -1,5 +1,6 @@
 import autograd.numpy as np
 from autograd import grad
+import matplotlib.pyplot as plt
 
 def gradient_descent(g, alpha, max_its, w):
     # compute gradient module using autograd
