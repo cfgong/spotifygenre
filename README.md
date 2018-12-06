@@ -13,9 +13,22 @@
 
 ### Directions for getting song features - using Spotify for Developers Account
 - you need a spotify CLIENT_ID & CLIENT_SECRET for this
+- make a `credentials.py` file and input details, sample format below, you really just need the CLIENT_ID and CLIENT_SECRET
+- also input a username for the user you want to analyze
+```
+PORT_NUMBER = 8080
+CLIENT_ID = 'YOUR_CLIENT_ID_HERE'
+CLIENT_SECRET = 'YOUR_CLIENT_SECRET_HERE'
+REDIRECT_URI = 'http://localhost:8080'
+SCOPE = 'user-library-read'
+CACHE = '.spotipyoauthcache'
+
+USERNAME = "YOUR_USERNAME_HERE"
+```
 - Create a [Spotify for Developers account](https://developer.spotify.com/)
 - Create an app to get CLIENT_ID & CLIENT_SECRET (this we saved in the `credentials.py` file)
-- to get `user_id` go to Spotify Web Console and go to a user, click on the three dots button > Share > Copy Spotify URI 
+- to get USERNAME go to Spotify Web Console and go to a user, click on the three dots button > Share > Copy Spotify URI 
+- run `get_data.py` to get user data into dataframes
 - more to come here
 
 ### Directions for getting features from a playlist - without having a Spotify for Developers Account
