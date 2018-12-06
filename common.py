@@ -36,3 +36,17 @@ def plot_cost_histories(cost_histories, labels, title = "", xlabel = "", ylabel 
         plt.plot(history,label = label)
     plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
     plt.show()
+
+def sigmoid(t):
+    return 1 / (1 + np.exp(-t))
+
+def model(x, w):
+    a = w[0] + np.dot(x.T, w[1:])
+    return a.T
+
+def least_squares(w):
+    cost = np.sum((model(x,w) - y)**2)
+    return cost/float(np.size(y))
+def least_absolute(w):
+    cost = np.sum(np.absolute(model(x,w) - y))
+    return cost/float(np.size(y))
