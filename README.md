@@ -13,7 +13,7 @@
 
 ### Directions for getting song features - using Spotify for Developers Account
 - you need a spotify CLIENT_ID & CLIENT_SECRET for this
-- Create a [Spotify for Developers account] (https://developer.spotify.com/)
+- Create a [Spotify for Developers account](https://developer.spotify.com/)
 - Create an app to get CLIENT_ID & CLIENT_SECRET (this we saved in the `credentials.py` file)
 - to get `user_id` go to Spotify Web Console and go to a user, click on the three dots button > Share > Copy Spotify URI 
 - more to come here
