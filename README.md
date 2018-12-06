@@ -39,3 +39,7 @@ USERNAME = "YOUR_USERNAME_HERE"
 - song data in  `songs.json`
 - [Get Audio Features](https://beta.developer.spotify.com/console/get-audio-features-several-tracks/), navigate to Tracks > Get Audio Features for Several Tracks and enter the song ids
 - copy and paste feature data in `features.json`
+
+
+### References:
+- github code reference for [spotipy](https://spotipy.readthedocs.io/en/latest/) usage in [`get_data.py`](https://github.com/juandes/spotify-audio-features-data-experiment/blob/master/get_data.py)
