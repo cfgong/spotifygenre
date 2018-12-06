@@ -11,7 +11,14 @@
 - `tinker.ipynb` takes json feature data from a playlist and converts to a pandas dataframe, draws feature histograms of said data
 - `common.py` contains commonly used functions
 
-### Directions for getting features from a playlist
+### Directions for getting song features - using Spotify for Developers Account
+- you need a spotify CLIENT_ID & CLIENT_SECRET for this
+- Create a [Spotify for Developers account] (https://developer.spotify.com/)
+- Create an app to get CLIENT_ID & CLIENT_SECRET (this we saved in the `credentials.py` file)
+- to get `user_id` go to Spotify Web Console and go to a user, click on the three dots button > Share > Copy Spotify URI 
+- more to come here
+
+### Directions for getting features from a playlist - without having a Spotify for Developers Account
 - Spotify Web Console > Playlists > [Get a Playlist's Tracks](https://developer.spotify.com/console/get-playlist-tracks/)
 - Share > Copy Spotify URI. From the URI grab the playlist ID (`spotify:user:username:playlist:playlist_id`)
 - `user_id` and `playlist_id` > `items(track(album(name, href), href, id, name))` in `fields`.
