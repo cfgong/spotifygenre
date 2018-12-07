@@ -1,16 +1,17 @@
 # Spotify Feature Learning
 ### File descriptions
+- `\archive` contains:
+    - `Cross Entropy.ipynb` contains three attempts at cross entropy classification & ugly feature histograms
+    - `spotify_genre_classifier.ipynb` contains first KNeighborsClassifier attempt
 - `\data` contains json song data
 - `2_genre_classification_classical_and_rock.ipynb` classifies classical music and rock music based on energy and danceability
 - `2_genre_classification_jazz_and_country` classifies classical music and rock music based on acousticness and loudness
-- `Cross Entropy.ipynb` contains three attempts at cross entropy classification & ugly feature histograms - TO DELETE?
 - `knn.ipynb` contains an attempt at KNeighbors classification
 - `Linear Regression Attempt.ipynb` features scatter plots comparing each pair of features and shows relationships between: loudness and energy, acousticness and Loudness
 - `common.py` contains commonly used functions
 - `get_data.py` allows for easy attraction of playlist data using Spotify for developers account (see below for more details)
 - `knn.ipynb` contains a knn attempt
 - `song_feature_distributions.ipynb` features prettified feature histograms for all genres and by genre
-- `spotify_genre_classifier.ipynb` contains first KNeighborsClassifier attempt - TO DELETE?
 - `tinker.ipynb` takes json feature data from a playlist and converts to a pandas dataframe, draws feature histograms of said data
 
 
@@ -42,6 +43,7 @@ USERNAME = "YOUR_USERNAME_HERE"
 
 
 ### Directions for getting features from a playlist - without having a Spotify for Developers Account
+- refer to `tinker.ipynb`
 - Spotify Web Console > Playlists > [Get a Playlist's Tracks](https://developer.spotify.com/console/get-playlist-tracks/)
 - Share > Copy Spotify URI. From the URI grab the playlist ID (`spotify:user:username:playlist:playlist_id`)
 - `user_id` and `playlist_id` > `items(track(album(name, href), href, id, name))` in `fields`.
@@ -54,3 +56,7 @@ USERNAME = "YOUR_USERNAME_HERE"
 ### References:
 - [Spotipy Docs](https://spotipy.readthedocs.io/en/latest/)
 - [github code reference](https://github.com/juandes/spotify-audio-features-data-experiment/blob/master/get_data.py) for [spotipy](https://spotipy.readthedocs.io/en/latest/) usage in `get_data.py`
+
+### To do:
+- Code cleanup:
+    - add a package requirements file
