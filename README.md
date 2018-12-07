@@ -42,4 +42,5 @@ USERNAME = "YOUR_USERNAME_HERE"
 
 
 ### References:
+- [Spotipy Docs](https://spotipy.readthedocs.io/en/latest/)
 - [github code reference](https://github.com/juandes/spotify-audio-features-data-experiment/blob/master/get_data.py) for [spotipy](https://spotipy.readthedocs.io/en/latest/) usage in `get_data.py`
