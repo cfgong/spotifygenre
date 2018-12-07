@@ -29,7 +29,14 @@ USERNAME = "YOUR_USERNAME_HERE"
 - Create an app to get CLIENT_ID & CLIENT_SECRET (this we saved in the `credentials.py` file)
 - to get USERNAME go to Spotify Web Console and go to a user, click on the three dots button > Share > Copy Spotify URI 
 - run `get_data.py` to get user data into dataframes
-- more to come here
+- `main(username, client_ID, client_secret)` returns two dataframes: one df with tracks data, one df with features of said tracks data
+- `main2(username, client_ID, client_secret, print_to_file = False):` returns a text file or prints out all the tracks in the public playlists of a user in a semi-nicely formatted manner
+- `get_playlist_content_from_id(playlistID, sp, playlistName = "")` just get the playlist track content from one playlist
+- `get_all_playlist_content(username, sp)` gets all the tracks in the public playlists of a user, returns a df
+- `get_user_playlists(username, sp)` gets all playlists of a user, returns a df
+- `get_all_track_features(tracks_df, sp)` gets all track features of a dataframe of tracks, returns a track_df
+- `get_track_features(trackID, sp)` gets audio features for a single track, returns a features_df
+
 
 ### Directions for getting features from a playlist - without having a Spotify for Developers Account
 - Spotify Web Console > Playlists > [Get a Playlist's Tracks](https://developer.spotify.com/console/get-playlist-tracks/)
