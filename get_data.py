@@ -9,6 +9,13 @@ from spotipy.oauth2 import SpotifyClientCredentials
 # client_credentials_manager = SpotifyClientCredentials(client_id='Your_Client_ID', client_secret='Your_Client_Secret')
 
 """
+get list of labels of a df
+"""
+def get_df_labels(df):
+    return df.columns.values.tolist()
+
+
+"""
 Takes in a username. 
 Get all the playlists of a user.
 Return a pandas df with the playlists's ids, names, and numbers of tracks. 
@@ -21,9 +28,9 @@ def get_user_playlists(username, sp):
     features_to_remove = ['collaborative', 'external_urls.spotify', 'href', 'images', 'owner.display_name', 'owner.external_urls.spotify', 'owner.href', 'owner.id', 'owner.type', 'owner.uri', 'primary_color', 'public', 'snapshot_id', 'tracks.href', 'type', 'uri'] 
     playlist_df = playlist_df.drop(features_to_remove, axis = 1)
     
-    # print attribute names
+    # print new attribute names
     """
-    attribute_names = playlist_df.columns.values.tolist()
+    attribute_names = get_df_labels(playlist_df)
     print("Feature attributes: ", attribute_names, "\n")
     """
     return playlist_df
@@ -124,12 +131,28 @@ def get_playlist_content(playlistName, playlistID, tracks_df, columns, sp):
         
     return tracks_df
 
-"""
-gets all playlists of a user, gets all the tracks, and returns a df of track features
-"""
-def get_playlist_features(username, sp):
+def get_playlist_content_from_id(playlistID, sp, playlistName = ""):
+    columns = ['playlist.id', 'playlist.name', 'id', 'artist', 'title']
+    tracks_df = pd.DataFrame(columns= columns) #dataframe to hold the track data
     
-    return None
+    return get_playlist_content(playlistName, playlistID, tracks_df, columns, sp)
+
+"""
+gets dataframe of tracks, and returns a df of track features
+"""
+def get_all_track_features(tracks_df, sp):
+    features = sp.audio_features(tracks_df["id"])
+    features_df = pd.DataFrame(features)
+
+    features_to_remove = ['analysis_url', 'duration_ms', 'id', 'key', 'mode', 'time_signature', 'track_href', 'type', 'uri']
+    # print("Features to remove: ", features_to_remove, "\n")
+    features_df = features_df.drop(features_to_remove, axis = 1)
+    # print new attribute names
+    """
+    attribute_names = get_df_labels(playlist_df)
+    print("Feature attributes: ", attribute_names, "\n")
+    """
+    return features_df
 """
 get playlist_df, tracks_df, features_df using usercredentials
 """
@@ -137,13 +160,13 @@ def main(username, client_ID, client_secret):
     client_credentials_manager = SpotifyClientCredentials(client_id=client_ID, client_secret=client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     
-    playlist_df = get_user_playlists(username, sp)
+    # playlist_df = get_user_playlists(username, sp)
     # print ("User's playlists details: playlist_df")
     tracks_df = get_all_playlist_content(username, sp)
     # print("All tracks from user's playlists: tracks_df")
-    features_df = get_playlist_features(username, sp)
+    features_df = get_all_track_features(tracks_df, sp)
     # print("All audio features of tracks in the user's playlists: features_df")
-    return playlist_df, tracks_df, features_df
+    return tracks_df, features_df
 
 """
 print all user tracks
@@ -158,10 +181,21 @@ def main2(username, client_ID, client_secret, filename = None):
         open(filename, 'w').close()
         
     print_all_user_tracks(username, sp, filename)
+    
+"""
+testing ground function
+"""    
+def test():
+    client_credentials_manager = SpotifyClientCredentials(client_id=creds.CLIENT_ID, client_secret=creds.CLIENT_SECRET)
+    sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
+    username = creds.USERNAME
+    
+    
 
 if __name__ == '__main__':
+    
     username = creds.USERNAME
-    playlist_df, tracks_df, features_df = main(username, creds.CLIENT_ID, creds.CLIENT_SECRET)
+    tracks_df, features_df = main(username, creds.CLIENT_ID, creds.CLIENT_SECRET)
     
     # write user song tracks list to a file
     """
