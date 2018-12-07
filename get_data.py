@@ -86,7 +86,7 @@ def print_all_user_tracks(username, sp, filename = None):
     for playlist in playlists['items']:
         print_playlist_tracks(username, playlist, sp, filename)
 """
-gets all playlists of a user, gets all the tracks, and returns a df of all tracks
+gets all the tracks in the public playlists of a user, returns a df
 """
 def get_all_playlist_content(username, sp):
     columns = ['playlist.id', 'playlist.name', 'id', 'artist', 'title']
@@ -142,6 +142,17 @@ gets dataframe of tracks, and returns a df of track features
 """
 def get_all_track_features(tracks_df, sp):
     features = sp.audio_features(tracks_df["id"])
+    return get_features_df_from_json(features)
+"""
+gets track id, and returns a df of track features
+"""
+def get_track_features(track_id, sp):
+    features = sp.audio_features(track_id)
+    return get_features_df_from_json(features)
+"""
+gets a features json, and returns a df of track features
+"""
+def get_features_df_from_json(features):
     features_df = pd.DataFrame(features)
 
     features_to_remove = ['analysis_url', 'duration_ms', 'id', 'key', 'mode', 'time_signature', 'track_href', 'type', 'uri']
@@ -172,12 +183,22 @@ def main(username, client_ID, client_secret):
 print all user tracks
 you can pass an optional argument with filename
 """
-def main2(username, client_ID, client_secret, filename = None):
+def main2(username, client_ID, client_secret, print_to_file = False):
     client_credentials_manager = SpotifyClientCredentials(client_id=client_ID, client_secret=client_secret)
     sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
     
-    # clear file first
-    if filename is not None:
+    filename = None
+    
+    if print_to_file:
+        user_details = sp.user(username)
+        display_name = user_details["display_name"]
+        
+        filename = ""
+        
+        if display_name is None:
+            filename = username + "_output.txt"
+        else:
+            filename = display_name.replace(' ', '') + "_output.txt"
         open(filename, 'w').close()
         
     print_all_user_tracks(username, sp, filename)
@@ -193,14 +214,13 @@ def test():
     
 
 if __name__ == '__main__':
-    
     username = creds.USERNAME
+    # get dataframe of user track data and user feature data
     tracks_df, features_df = main(username, creds.CLIENT_ID, creds.CLIENT_SECRET)
     
     # write user song tracks list to a file
     """
-    filename = username + "output.txt"
-    main2(username, creds.CLIENT_ID, creds.CLIENT_SECRET, filename)
-    """    
+    main2(username, creds.CLIENT_ID, creds.CLIENT_SECRET, print_to_file = True)
+    """
 
     
