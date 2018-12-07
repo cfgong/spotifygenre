@@ -7,7 +7,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 # shhh secret stuff, credentials in crentials.py
 # client_credentials_manager = SpotifyClientCredentials(client_id='Your_Client_ID', client_secret='Your_Client_Secret')
-# client_credentials_manager = SpotifyClientCredentials(client_id=creds.CLIENT_ID, client_secret=creds.CLIENT_SECRET)
 
 """
 Takes in a username. 
@@ -82,7 +81,7 @@ def print_all_user_tracks(username, sp, filename = None):
 """
 gets all playlists of a user, gets all the tracks, and returns a df of all tracks
 """
-def get_playlist_content(username, sp):
+def get_all_playlist_content(username, sp):
     columns = ['playlist.id', 'playlist.name', 'id', 'artist', 'title']
     tracks_df = pd.DataFrame(columns= columns) #dataframe to hold the track data
     
@@ -90,36 +89,46 @@ def get_playlist_content(username, sp):
     for playlist in playlists['items']:
         playlistName = playlist['name']
         playlistID = playlist['id']
+        tracks_df = get_playlist_content(playlistName, playlistID, tracks_df, columns, sp)
         
-        results = sp.user_playlist(username, playlistID, fields="tracks,next")
-        tracks = results['tracks']
-        
-        """
-        appends track data of each track into the tracks_df dataframe
-        """
-        def input_track_data(tracks, tracks_df):
-            for i, item in enumerate(tracks['items']):
-                track = item['track']
-                
-                artistName = track['artists'][0]['name']
-                trackName = track['name']
-                trackID = track['id']
-                
-                df = pd.DataFrame([[playlistID, playlistName, trackID, artistName, trackName]], columns = columns)
-                tracks_df = tracks_df.append(df, ignore_index = True)
-            return tracks_df
-        
+    return tracks_df
+
+"""
+get content of just one playlist
+pass in playlist id
+"""
+def get_playlist_content(playlistName, playlistID, tracks_df, columns, sp):
+    results = sp.user_playlist(username, playlistID, fields="tracks,next")
+    tracks = results['tracks']
+    
+    """
+    appends track data of each track into the tracks_df dataframe
+    """
+    def input_track_data(tracks, tracks_df):
+        for i, item in enumerate(tracks['items']):
+            track = item['track']
+            
+            artistName = track['artists'][0]['name']
+            trackName = track['name']
+            trackID = track['id']
+            
+            df = pd.DataFrame([[playlistID, playlistName, trackID, artistName, trackName]], columns = columns)
+            tracks_df = tracks_df.append(df, ignore_index = True)
+        return tracks_df
+    
+    tracks_df = input_track_data(tracks, tracks_df)
+    
+    while tracks['next']:
+        tracks = sp.next(tracks)
         tracks_df = input_track_data(tracks, tracks_df)
         
-        while tracks['next']:
-            tracks = sp.next(tracks)
-            tracks_df = input_track_data(tracks, tracks_df)
     return tracks_df
 
 """
 gets all playlists of a user, gets all the tracks, and returns a df of track features
 """
 def get_playlist_features(username, sp):
+    
     return None
 """
 get playlist_df, tracks_df, features_df using usercredentials
@@ -130,7 +139,7 @@ def main(username, client_ID, client_secret):
     
     playlist_df = get_user_playlists(username, sp)
     # print ("User's playlists details: playlist_df")
-    tracks_df = get_playlist_content(username, sp)
+    tracks_df = get_all_playlist_content(username, sp)
     # print("All tracks from user's playlists: tracks_df")
     features_df = get_playlist_features(username, sp)
     # print("All audio features of tracks in the user's playlists: features_df")
@@ -152,7 +161,6 @@ def main2(username, client_ID, client_secret, filename = None):
 
 if __name__ == '__main__':
     username = creds.USERNAME
-
     playlist_df, tracks_df, features_df = main(username, creds.CLIENT_ID, creds.CLIENT_SECRET)
     
     # write user song tracks list to a file
