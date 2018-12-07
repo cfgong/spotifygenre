@@ -6,10 +6,13 @@
 - `Cross Entropy.ipynb` contains three attempts at cross entropy classification & ugly feature histograms - TO DELETE?
 - `knn.ipynb` contains an attempt at KNeighbors classification
 - `Linear Regression Attempt.ipynb` features scatter plots comparing each pair of features and shows relationships between: loudness and energy, acousticness and Loudness
+- `common.py` contains commonly used functions
+- `get_data.py` allows for easy attraction of playlist data using Spotify for developers account (see below for more details)
+- `knn.ipynb` contains a knn attempt
 - `song_feature_distributions.ipynb` features prettified feature histograms for all genres and by genre
 - `spotify_genre_classifier.ipynb` contains first KNeighborsClassifier attempt - TO DELETE?
 - `tinker.ipynb` takes json feature data from a playlist and converts to a pandas dataframe, draws feature histograms of said data
-- `common.py` contains commonly used functions
+
 
 ### Directions for getting song features - using Spotify for Developers Account
 - you need a spotify CLIENT_ID & CLIENT_SECRET for this
