@@ -1,4 +1,9 @@
 # Spotify Feature Learning
+### Data
+- [training dataset](https://raw.githubusercontent.com/sql-injection/spotify_data/master/train.csv)
+- [testing dataset](https://raw.githubusercontent.com/sql-injection/spotify_data/master/test.csv)
+- [complete dataset](https://raw.githubusercontent.com/sql-injection/spotify_data/master/spotify.csv)
+
 ### File descriptions
 - `\archive` contains:
     - `Cross Entropy.ipynb` contains three attempts at cross entropy classification & ugly feature histograms
@@ -10,3 +15,5 @@
 - `common.py` contains commonly used functions
 - `knn.ipynb` contains a knn attempt
 - `song_feature_distributions.ipynb` features prettified feature histograms for all genres and by genre
+
+Refer [here](https://github.com/cfgong/spotifytinker) for details on how to retrieve Spotify feature data from other playlists.
