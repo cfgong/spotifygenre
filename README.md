@@ -1,4 +1,8 @@
 # Spotify Feature Learning
+### Details
+[Youtube Demo Link](https://www.youtube.com/watch?v=AIh-MUOlCms)  
+Group Members: Brandon Fujii, Casey Poon, Grant Yu, Jonathan Huang and Devin Bajaj, Crystal Gong
+
 ### Data
 - [training dataset](https://raw.githubusercontent.com/sql-injection/spotify_data/master/train.csv)
 - [testing dataset](https://raw.githubusercontent.com/sql-injection/spotify_data/master/test.csv)
